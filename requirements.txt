@@ -3,6 +3,5 @@ pandas
 numpy
 scipy
 scikit-learn
-pickle
 imbalanced-learn
 statisitics
