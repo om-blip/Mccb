@@ -4,4 +4,3 @@ numpy
 scipy
 scikit-learn
 imbalanced-learn
-statisitics
