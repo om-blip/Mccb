@@ -142,23 +142,25 @@ if uploaded_files:
     
     for uploaded_file in uploaded_files:
         st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         df, data = process_csv(uploaded_file)
 
         prediction = model.predict(data)[0]  # Get the first prediction
 
         condition, health_status, image_path = map_prediction(prediction)
 
-        st.markdown('<div class="content">', unsafe_allow_html=True)
+        st.markdown('<div class="subtitle">MCCB Health:</div>', unsafe_allow_html=True)
+        st.markdown("---")
         st.write(f"Condition: {condition}")
         st.write(f"Health Status: {health_status}")
-        st.image(image_path, caption=condition)
+        st.image(image_path, caption='Spring Function')
         st.markdown('</div>', unsafe_allow_html=True)
 
         # Extract and display maximum amplitude for on and off operations
         on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
 
         st.markdown('<div class="subtitle">For ON Operation:</div>', unsafe_allow_html=True)
-        st.markdown('<div class="content">', unsafe_allow_html=True)
+        st.markdown("---")
         st.write(f"Vibration Amplitude: {on_max} mV")
         total_time_seconds_on, total_time_seconds_off = calculate_operation_times(df, 5000, 6000, 45100, 46000)
         total_time_seconds_on = round(total_time_seconds_on, 5)
@@ -170,7 +172,7 @@ if uploaded_files:
         st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown('<div class="subtitle">For OFF Operation:</div>', unsafe_allow_html=True)
-        st.markdown('<div class="content">', unsafe_allow_html=True)
+        st.markdown("---")
         st.write(f"Vibration Amplitude: {off_max} mV")
         if not np.isnan(total_time_seconds_off):
             st.write(f"Vibration Operation Time: {total_time_seconds_off} s")
