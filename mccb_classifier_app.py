@@ -168,7 +168,7 @@ if uploaded_files:
         if not np.isnan(total_time_seconds_on):
             st.write(f"Vibration Operation Time: {total_time_seconds_on} s")
         else:
-            st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low.")
+            st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low. Please upload a different file.")
         st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown('<div class="subtitle">For OFF Operation:</div>', unsafe_allow_html=True)
@@ -177,5 +177,5 @@ if uploaded_files:
         if not np.isnan(total_time_seconds_off):
             st.write(f"Vibration Operation Time: {total_time_seconds_off} s")
         else:
-            st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low.")
+            st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low. Please upload a different file.")
         st.markdown('</div>', unsafe_allow_html=True)
