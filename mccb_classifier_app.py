@@ -127,9 +127,10 @@ st.markdown(
     .main {background-color: #f0f2f6;}
     .title {color: #1f77b4; font-size: 36px; font-weight: bold;}
     .subtitle {color: #ff7f0e; font-size: 24px; font-weight: bold;}
-    .highlight {font-size: 18px; font-weight: bold; color: #00000;}
+    .highlight {font-size: 18px; font-weight: bold; color: #000000;}
     .container {display: flex; justify-content: space-between;}
     .box {width: 48%; padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px;}
+    .image-caption {font-weight: bold;}
     </style>
     """,
     unsafe_allow_html=True
@@ -153,7 +154,8 @@ if uploaded_files:
         
         st.write(f'<span class="highlight">Condition: {condition}</span>', unsafe_allow_html=True)
         st.write(f'<span class="highlight">Health Status: {health_status}</span>', unsafe_allow_html=True)
-        st.image(image_path, caption='Remaining Spring Function')
+        st.image(image_path, caption='Remaining Spring Function', use_column_width=True)
+        st.markdown('<p class="image-caption">Remaining Spring Function</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
         # Extract and display maximum amplitude for on and off operations
@@ -163,28 +165,27 @@ if uploaded_files:
         total_time_seconds_on = round(total_time_seconds_on, 5)
         total_time_seconds_off = round(total_time_seconds_off, 5)
 
-        st.markdown('<div class="container">', unsafe_allow_html=True)
+        # Using Streamlit columns to align sections side by side
+        col1, col2 = st.columns(2)
 
-        # ON Operation box
-        st.markdown('<div class="box">', unsafe_allow_html=True)
-        st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
-        st.markdown("---")
-        st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
-        if not np.isnan(total_time_seconds_on):
-            st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_on} s</span>', unsafe_allow_html=True)
-        else:
-            st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
-        st.markdown('</div>', unsafe_allow_html=True)
+        with col1:
+            st.markdown('<div class="box">', unsafe_allow_html=True)
+            st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
+            st.markdown("---")
+            st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
+            if not np.isnan(total_time_seconds_on):
+                st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_on} s</span>', unsafe_allow_html=True)
+            else:
+                st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        # OFF Operation box
-        st.markdown('<div class="box">', unsafe_allow_html=True)
-        st.markdown('<div class="subtitle">OFF Operation:</div>', unsafe_allow_html=True)
-        st.markdown("---")
-        st.markdown(f'<span class="highlight">Vibration Amplitude: {off_max} mV</span>', unsafe_allow_html=True)
-        if not np.isnan(total_time_seconds_off):
-            st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_off} s</span>', unsafe_allow_html=True)
-        else:
-            st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown('<div class="box">', unsafe_allow_html=True)
+            st.markdown('<div class="subtitle">OFF Operation:</div>', unsafe_allow_html=True)
+            st.markdown("---")
+            st.markdown(f'<span class="highlight">Vibration Amplitude: {off_max} mV</span>', unsafe_allow_html=True)
+            if not np.isnan(total_time_seconds_off):
+                st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_off} s</span>', unsafe_allow_html=True)
+            else:
+                st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
+            st.markdown('</div>', unsafe_allow_html=True)
