@@ -149,8 +149,8 @@ if uploaded_files:
 
         condition, health_status, image_path = map_prediction(prediction)
         
-        st.write(f'<span class="highlight">Condition: {condition}</span>')
-        st.write(f'<span class="highlight">Health Status: {health_status}</span>')
+        st.write(f'<span class="highlight">Condition: {condition}</span>', unsafe_allow_html=True)
+        st.write(f'<span class="highlight">Health Status: {health_status}</span>', unsafe_allow_html=True)
         st.image(image_path, caption='Remaining Spring Function')
         st.markdown('</div>', unsafe_allow_html=True)
 
