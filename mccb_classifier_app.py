@@ -130,7 +130,7 @@ st.markdown(
     .highlight {font-size: 18px; font-weight: bold; color: #000000;}
     .container {display: flex; justify-content: space-between;}
     .box {width: 48%; padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px;}
-    .partition {border-left: 2px solid #ddd; height: 100%; position: absolute; left: 50%; top: 0;}
+    .partition {border-left: 2px solid #ddd; padding-left: 20px;}
     </style>
     """,
     unsafe_allow_html=True
@@ -145,7 +145,7 @@ if uploaded_files:
     
     for uploaded_file in uploaded_files:
         # Using Streamlit columns to align sections side by side
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns([2, 2])
 
         with col1:
             st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
@@ -169,6 +169,8 @@ if uploaded_files:
             total_time_seconds_off = round(total_time_seconds_off, 5)
 
         with col2:
+            st.markdown('<div class="partition">', unsafe_allow_html=True)  # Start partition div
+
             st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
             st.markdown("---")
             st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
@@ -186,6 +188,5 @@ if uploaded_files:
             else:
                 st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
             st.markdown('</div>', unsafe_allow_html=True)
-        
-        # Add partition line
-        st.markdown('<div class="partition"></div>', unsafe_allow_html=True)
+
+            st.markdown('</div>', unsafe_allow_html=True)  # End partition div
