@@ -127,8 +127,7 @@ st.markdown(
     .main {background-color: #f0f2f6;}
     .title {color: #1f77b4; font-size: 36px; font-weight: bold;}
     .subtitle {color: #ff7f0e; font-size: 24px; font-weight: bold;}
-    .metric {font-size: 18px; font-weight: bold;}
-    .highlight {font-size: 20px; font-weight: bold; color: #ff7f0e;}
+    .highlight {font-size: 18px; font-weight: bold; color: #00000;}
     </style>
     """,
     unsafe_allow_html=True
@@ -150,8 +149,8 @@ if uploaded_files:
 
         condition, health_status, image_path = map_prediction(prediction)
         
-        st.write(f"Condition: {condition}")
-        st.write(f"Health Status: {health_status}")
+        st.write(f'<span class="highlight">"Condition: {condition}"</span>')
+        st.write(f'<span class="highlight">Health Status: {health_status}"</span>')
         st.image(image_path, caption='Remaining Spring Function')
         st.markdown('</div>', unsafe_allow_html=True)
 
