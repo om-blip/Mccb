@@ -146,7 +146,7 @@ if uploaded_files:
     
     for uploaded_file in uploaded_files:
         # Using Streamlit columns to align sections side by side
-        col1, col2, col3 = st.columns([2, 2])
+        col1, col2, col3 = st.columns([2, 0.2, 2])
 
         with col1:
             st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
