@@ -128,6 +128,8 @@ st.markdown(
     .title {color: #1f77b4; font-size: 36px; font-weight: bold;}
     .subtitle {color: #ff7f0e; font-size: 24px; font-weight: bold;}
     .highlight {font-size: 18px; font-weight: bold; color: #00000;}
+    .container {display: flex; justify-content: space-between;}
+    .box {width: 48%; padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px;}
     </style>
     """,
     unsafe_allow_html=True
@@ -157,6 +159,10 @@ if uploaded_files:
         # Extract and display maximum amplitude for on and off operations
         on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
 
+        st.markdown('<div class="container">', unsafe_allow_html=True)
+
+        # ON Operation box
+        st.markdown('<div class="box">', unsafe_allow_html=True)
         st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
         st.markdown("---")
         st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
@@ -169,6 +175,7 @@ if uploaded_files:
             st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
         st.markdown('</div>', unsafe_allow_html=True)
 
+        st.markdown('<div class="box">', unsafe_allow_html=True)
         st.markdown('<div class="subtitle">OFF Operation:</div>', unsafe_allow_html=True)
         st.markdown("---")
         st.markdown(f'<span class="highlight">Vibration Amplitude: {off_max} mV</span>', unsafe_allow_html=True)
