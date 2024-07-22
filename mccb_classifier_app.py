@@ -145,6 +145,7 @@ if uploaded_files:
     model = load_model()
     
     for uploaded_file in uploaded_files:
+        st.divider()
         # Using Streamlit columns to align sections side by side
         col1, col2, col3 = st.columns([2, 0.2, 2])
 
