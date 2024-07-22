@@ -112,11 +112,11 @@ def calculate_operation_times(df, on_start, on_end, off_start, off_end):
 # Map predictions to labels, health status, and images
 def map_prediction(prediction):
     mapping = {
-        'All Springs attached': ("All springs working", "Health - OK", "100%.png"),
-        'One Inner spring removed': ("15% spring function loss", "Health - OK", "85%.png"),
-        'One Entire set removed': ("30% spring function loss", "Health - Need Maintenance", "70%.png"),
-        'One Entire set and Second Inner spring removed': ("45% spring function loss", "Health - Need Maintenance", "55%.png"),
-        'Two Entire sets removed': ("60% spring function loss", "Health - Need Maintenance", "40%orless.png")
+        'All Springs attached': ("All springs working", "OK", "100%.png"),
+        'One Inner spring removed': ("15% spring function loss", "OK", "85%.png"),
+        'One Entire set removed': ("30% spring function loss", "Need Maintenance", "70%.png"),
+        'One Entire set and Second Inner spring removed': ("45% spring function loss", "Need Maintenance", "55%.png"),
+        'Two Entire sets removed': ("60% spring function loss", "Need Maintenance", "40%orless.png")
     }
     return mapping[prediction]
 
@@ -128,12 +128,13 @@ st.markdown(
     .title {color: #1f77b4; font-size: 36px; font-weight: bold;}
     .subtitle {color: #ff7f0e; font-size: 24px; font-weight: bold;}
     .metric {font-size: 18px; font-weight: bold;}
+    .highlight {font-size: 20px; font-weight: bold; color: #ff7f0e;}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="title">MCCB Mechanism Health Prediction</div>', unsafe_allow_html=True)
+st.markdown('<div class="title">MCCB Mechanism Health</div>', unsafe_allow_html=True)
 
 uploaded_files = st.file_uploader("Upload a CSV file", type="csv", accept_multiple_files=True)
 
@@ -142,40 +143,38 @@ if uploaded_files:
     
     for uploaded_file in uploaded_files:
         st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("---")
         df, data = process_csv(uploaded_file)
 
         prediction = model.predict(data)[0]  # Get the first prediction
 
         condition, health_status, image_path = map_prediction(prediction)
-
-        st.markdown('<div class="subtitle">MCCB Health:</div>', unsafe_allow_html=True)
-        st.markdown("---")
+        
         st.write(f"Condition: {condition}")
         st.write(f"Health Status: {health_status}")
-        st.image(image_path, caption='Spring Function')
+        st.image(image_path, caption='Remaining Spring Function')
         st.markdown('</div>', unsafe_allow_html=True)
 
         # Extract and display maximum amplitude for on and off operations
         on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
 
-        st.markdown('<div class="subtitle">For ON Operation:</div>', unsafe_allow_html=True)
+        st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
         st.markdown("---")
-        st.write(f"Vibration Amplitude: {on_max} mV")
+        st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
         total_time_seconds_on, total_time_seconds_off = calculate_operation_times(df, 5000, 6000, 45100, 46000)
         total_time_seconds_on = round(total_time_seconds_on, 5)
         total_time_seconds_off = round(total_time_seconds_off, 5) 
         if not np.isnan(total_time_seconds_on):
-            st.write(f"Vibration Operation Time: {total_time_seconds_on} s")
+            st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_on} s</span>', unsafe_allow_html=True)
         else:
             st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
         st.markdown('</div>', unsafe_allow_html=True)
 
-        st.markdown('<div class="subtitle">For OFF Operation:</div>', unsafe_allow_html=True)
+        st.markdown('<div class="subtitle">OFF Operation:</div>', unsafe_allow_html=True)
         st.markdown("---")
-        st.write(f"Vibration Amplitude: {off_max} mV")
+        st.markdown(f'<span class="highlight">Vibration Amplitude: {off_max} mV</span>', unsafe_allow_html=True)
         if not np.isnan(total_time_seconds_off):
-            st.write(f"Vibration Operation Time: {total_time_seconds_off} s")
+            st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_off} s</span>', unsafe_allow_html=True)
         else:
             st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
         st.markdown('</div>', unsafe_allow_html=True)
