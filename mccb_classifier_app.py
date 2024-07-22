@@ -136,9 +136,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Using Streamlit columns to align sections side by side
-col1, col2 = st.columns(2)
-
 st.markdown('<div class="title">MCCB Mechanism Health</div>', unsafe_allow_html=True)
 
 uploaded_files = st.file_uploader("Upload a CSV file", type="csv", accept_multiple_files=True)
@@ -147,6 +144,9 @@ if uploaded_files:
     model = load_model()
     
     for uploaded_file in uploaded_files:
+        # Using Streamlit columns to align sections side by side
+        col1, col2 = st.columns(2)
+        
         with col1:
             st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
             st.markdown("---")
