@@ -136,6 +136,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# Using Streamlit columns to align sections side by side
+col1, col2 = st.columns(2)
+
 st.markdown('<div class="title">MCCB Mechanism Health</div>', unsafe_allow_html=True)
 
 uploaded_files = st.file_uploader("Upload a CSV file", type="csv", accept_multiple_files=True)
@@ -144,6 +147,7 @@ if uploaded_files:
     model = load_model()
     
     for uploaded_file in uploaded_files:
+        with col1:
         st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
         st.markdown("---")
         df, data = process_csv(uploaded_file)
@@ -165,11 +169,7 @@ if uploaded_files:
         total_time_seconds_on = round(total_time_seconds_on, 5)
         total_time_seconds_off = round(total_time_seconds_off, 5)
 
-        # Using Streamlit columns to align sections side by side
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.markdown('<div class="box">', unsafe_allow_html=True)
+        with col2:
             st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
             st.markdown("---")
             st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
@@ -179,8 +179,6 @@ if uploaded_files:
                 st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
             st.markdown('</div>', unsafe_allow_html=True)
 
-        with col2:
-            st.markdown('<div class="box">', unsafe_allow_html=True)
             st.markdown('<div class="subtitle">OFF Operation:</div>', unsafe_allow_html=True)
             st.markdown("---")
             st.markdown(f'<span class="highlight">Vibration Amplitude: {off_max} mV</span>', unsafe_allow_html=True)
