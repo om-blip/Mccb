@@ -148,26 +148,26 @@ if uploaded_files:
     
     for uploaded_file in uploaded_files:
         with col1:
-        st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
-        st.markdown("---")
-        df, data = process_csv(uploaded_file)
+            st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
+            st.markdown("---")
+            df, data = process_csv(uploaded_file)
 
-        prediction = model.predict(data)[0]  # Get the first prediction
+            prediction = model.predict(data)[0]  # Get the first prediction
 
-        condition, health_status, image_path = map_prediction(prediction)
+            condition, health_status, image_path = map_prediction(prediction)
         
-        st.write(f'<span class="highlight">Condition: {condition}</span>', unsafe_allow_html=True)
-        st.write(f'<span class="highlight">Health Status: {health_status}</span>', unsafe_allow_html=True)
-        st.image(image_path, caption='Remaining Spring Function', use_column_width=True)
-        st.markdown('<p class="image-caption">Remaining Spring Function</p>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.write(f'<span class="highlight">Condition: {condition}</span>', unsafe_allow_html=True)
+            st.write(f'<span class="highlight">Health Status: {health_status}</span>', unsafe_allow_html=True)
+            st.image(image_path, caption='Remaining Spring Function', use_column_width=True)
+            st.markdown('<p class="image-caption">Remaining Spring Function</p>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        # Extract and display maximum amplitude for on and off operations
-        on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
+            # Extract and display maximum amplitude for on and off operations
+            on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
 
-        total_time_seconds_on, total_time_seconds_off = calculate_operation_times(df, 5000, 6000, 45100, 46000)
-        total_time_seconds_on = round(total_time_seconds_on, 5)
-        total_time_seconds_off = round(total_time_seconds_off, 5)
+            total_time_seconds_on, total_time_seconds_off = calculate_operation_times(df, 5000, 6000, 45100, 46000)
+            total_time_seconds_on = round(total_time_seconds_on, 5)
+            total_time_seconds_off = round(total_time_seconds_off, 5)
 
         with col2:
             st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
