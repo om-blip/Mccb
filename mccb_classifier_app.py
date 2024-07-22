@@ -130,7 +130,7 @@ st.markdown(
     .highlight {font-size: 18px; font-weight: bold; color: #000000;}
     .container {display: flex; justify-content: space-between;}
     .box {width: 48%; padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px;}
-    .image-caption {font-weight: bold;}
+    .partition {border-left: 2px solid #ddd; height: 100%; position: absolute; left: 50%; top: 0;}
     </style>
     """,
     unsafe_allow_html=True
@@ -146,7 +146,7 @@ if uploaded_files:
     for uploaded_file in uploaded_files:
         # Using Streamlit columns to align sections side by side
         col1, col2 = st.columns(2)
-        
+
         with col1:
             st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
             st.markdown("---")
@@ -159,7 +159,6 @@ if uploaded_files:
             st.write(f'<span class="highlight">Condition: {condition}</span>', unsafe_allow_html=True)
             st.write(f'<span class="highlight">Health Status: {health_status}</span>', unsafe_allow_html=True)
             st.image(image_path, caption='Remaining Spring Function', use_column_width=True)
-            st.markdown('<p class="image-caption">Remaining Spring Function</p>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
             # Extract and display maximum amplitude for on and off operations
@@ -187,3 +186,6 @@ if uploaded_files:
             else:
                 st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
             st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Add partition line
+        st.markdown('<div class="partition"></div>', unsafe_allow_html=True)
