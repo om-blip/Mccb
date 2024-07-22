@@ -146,12 +146,12 @@ if uploaded_files:
     
     for uploaded_file in uploaded_files:
         st.divider()
+        st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
+        st.markdown("---")
         # Using Streamlit columns to align sections side by side
         col1, col2, col3 = st.columns([2, 0.2, 2])
 
         with col1:
-            st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
-            st.markdown("---")
             df, data = process_csv(uploaded_file)
 
             prediction = model.predict(data)[0]  # Get the first prediction
