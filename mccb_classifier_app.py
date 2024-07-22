@@ -170,7 +170,7 @@ if uploaded_files:
             total_time_seconds_off = round(total_time_seconds_off, 5)
 
         with col2:
-            st.markdown(<div class="divider-vertical-line">, unsafe_allow_html=True)# Start partition div
+            st.markdown('<div class="divider-vertical-line">', unsafe_allow_html=True)# Start partition div
             st.markdown('</div>', unsafe_allow_html=True)  # End partition div
             
         with col3:
