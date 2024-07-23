@@ -132,7 +132,7 @@ st.markdown(
     .box {width: 48%; padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px;}
     .partition {border-left: 2px solid #ddd; padding-left: 20px;}
     .vertical-line {border-left: 2px solid rgba(49, 51, 63, 0.2); height: 320px; margin: auto;}
-    .image-caption {font-weight: bold;}
+    .image-caption {font-size: 18px; font-weight: bold; text-align: center; display: block; margin-top: -10px;}
     </style>
     """,
     unsafe_allow_html=True
