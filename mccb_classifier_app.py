@@ -160,6 +160,7 @@ if uploaded_files:
 
             health_status_color = "green" if health_status == "OK" else "red"
             st.markdown(f'<span class="highlight">Condition : {condition}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="highlight">Health Status : <span style="color: {health_status_color};">{health_status}</span></span>', unsafe_allow_html=True)
             st.image(image_path, use_column_width=True)
             st.markdown('<div class="image-caption">Remaining Spring Function</div>', unsafe_allow_html=True)
 
