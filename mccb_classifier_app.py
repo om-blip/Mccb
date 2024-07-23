@@ -132,6 +132,7 @@ st.markdown(
     .box {width: 48%; padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px;}
     .partition {border-left: 2px solid #ddd; padding-left: 20px;}
     .vertical-line {border-left: 2px solid rgba(49, 51, 63, 0.2); height: 320px; margin: auto;}
+    .image-caption {font-weight: bold;}
     </style>
     """,
     unsafe_allow_html=True
@@ -148,47 +149,44 @@ if uploaded_files:
         st.divider()
         st.markdown('<div class="subtitle">Processing File: {}</div>'.format(uploaded_file.name), unsafe_allow_html=True)
         st.markdown("---")
-        # Using Streamlit columns to align sections side by side
         col1, col2, col3 = st.columns([2, 0.2, 2])
 
         with col1:
             df, data = process_csv(uploaded_file)
 
-            prediction = model.predict(data)[0]  # Get the first prediction
+            prediction = model.predict(data)[0]
 
             condition, health_status, image_path = map_prediction(prediction)
-        
-            st.write(f'<span class="highlight">Condition: {condition}</span>', unsafe_allow_html=True)
-            st.write(f'<span class="highlight">Health Status: {health_status}</span>', unsafe_allow_html=True)
-            st.image(image_path, caption='Remaining Spring Function', use_column_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
 
-            # Extract and display maximum amplitude for on and off operations
+            health_status_color = "green" if health_status == "OK" else "red"
+            st.markdown(f'<span class="highlight">Condition : {condition}</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="highlight">Health Status : <span style="color: {health_status_color};">{health_status}</span></span>', unsafe_allow_html=True)
+            st.image(image_path, caption='<span class="image-caption">Remaining Spring Function</span>', use_column_width=True)
+
             on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
-
             total_time_seconds_on, total_time_seconds_off = calculate_operation_times(df, 5000, 6000, 45100, 46000)
             total_time_seconds_on = round(total_time_seconds_on, 5)
             total_time_seconds_off = round(total_time_seconds_off, 5)
 
         with col2:
-            st.markdown('<div class="divider-vertical-line">', unsafe_allow_html=True)# Start partition div
-            st.markdown('</div>', unsafe_allow_html=True)  # End partition div
+            st.markdown('<div class="divider-vertical-line">', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
             
         with col3:
             st.markdown('<div class="subtitle">ON Operation:</div>', unsafe_allow_html=True)
             st.markdown("---")
-            st.markdown(f'<span class="highlight">Vibration Amplitude: {on_max} mV</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="highlight">Vibration Amplitude : {on_max} mV</span>', unsafe_allow_html=True)
             if not np.isnan(total_time_seconds_on):
-                st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_on} s</span>', unsafe_allow_html=True)
+                st.markdown(f'<span class="highlight">On Operation Time : {total_time_seconds_on} s</span>', unsafe_allow_html=True)
             else:
                 st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
             st.markdown('</div>', unsafe_allow_html=True)
 
             st.markdown('<div class="subtitle">OFF Operation:</div>', unsafe_allow_html=True)
             st.markdown("---")
-            st.markdown(f'<span class="highlight">Vibration Amplitude: {off_max} mV</span>', unsafe_allow_html=True)
+            st.markdown(f'<span class="highlight">Vibration Amplitude : {off_max} mV</span>', unsafe_allow_html=True)
             if not np.isnan(total_time_seconds_off):
-                st.markdown(f'<span class="highlight">Vibration Operation Time: {total_time_seconds_off} s</span>', unsafe_allow_html=True)
+                st.markdown(f'<span class="highlight">Vibration Operation Time : {total_time_seconds_off} s</span>', unsafe_allow_html=True)
             else:
                 st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
             st.markdown('</div>', unsafe_allow_html=True)
