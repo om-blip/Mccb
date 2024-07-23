@@ -160,8 +160,8 @@ if uploaded_files:
 
             health_status_color = "green" if health_status == "OK" else "red"
             st.markdown(f'<span class="highlight">Condition : {condition}</span>', unsafe_allow_html=True)
-            st.markdown(f'<span class="highlight">Health Status : <span style="color: {health_status_color};">{health_status}</span></span>', unsafe_allow_html=True)
-            st.image(image_path, caption='<span class="image-caption">Remaining Spring Function</span>', use_column_width=True)
+            st.image(image_path, use_column_width=True)
+            st.markdown('<div class="image-caption">Remaining Spring Function</div>', unsafe_allow_html=True)
 
             on_max, off_max = extract_amplitude(df, 1000, 10000, 40000, 50000)
             total_time_seconds_on, total_time_seconds_off = calculate_operation_times(df, 5000, 6000, 45100, 46000)
@@ -186,7 +186,7 @@ if uploaded_files:
             st.markdown("---")
             st.markdown(f'<span class="highlight">Vibration Amplitude : {off_max} mV</span>', unsafe_allow_html=True)
             if not np.isnan(total_time_seconds_off):
-                st.markdown(f'<span class="highlight">Vibration Operation Time : {total_time_seconds_off} s</span>', unsafe_allow_html=True)
+                st.markdown(f'<span class="highlight">Off Operation Time : {total_time_seconds_off} s</span>', unsafe_allow_html=True)
             else:
                 st.write("Probably fault in the data or faulty file that's why cannot calculate time and probably Amplitude is low, please upload a different file.")
             st.markdown('</div>', unsafe_allow_html=True)
